@@ -1,37 +1,576 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="initial-scale=1,maximum-scale=1,user-scalable=no"
-    />
-    <title>ArcGIS JSAPI Babel</title>
-    <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.13/esri/themes/light/main.css"
-    />
-    <link rel="stylesheet" href="main.css" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="./combined.js"></script>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> -->
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <link rel="stylesheet" href="./css/ionicons.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- <script src="https://js.arcgis.com/4.12/"></script> -->
     <script>
-      var locationPath = location.pathname.replace(/\/[^\/]+$/, '');
-      window.dojoConfig = {
-        packages: [
-          {
-            name: 'app',
-            location: locationPath + '/dist',
-          },
-        ],
-      };
+        var locationPath = location.pathname.replace(/\/[^\/]+$/, '');
+        window.dojoConfig = {
+            packages: [{
+                name: 'app',
+                location: locationPath + '/dist',
+            }, ],
+        };
     </script>
     <script src="https://js.arcgis.com/4.13/"></script>
-  </head>
+    <title>B.E.R.M. EXPLORER</title>
+</head>
 
-  <body>
-    <div id="viewDiv"></div>
+<body class="body">
+
+    <div class="sub__body">
+        <div class="popup" id="popup">
+            <div class="popup__content">
+                <div class="popupLogo">
+                    <img src="./img/popupLogo.png" alt="logo" class="popupLogoImg">
+                </div>
+                <div class="message">
+                    The South Carolina Beach Erosion & Monitoring application is designed to provide South Carolina beachfront communities, researchers and the general public access to topographic and bathymetric data for various beach areas in South Carolina. The Volume
+                    tool can also be used to estimate the volume of Beach erosion over multiple years.
+
+                </div>
+                <div class="disclaimer">
+                    <div class="diclaimer-box">
+                        <h5>
+                            DISCLAIMER
+                        </h5>
+                    </div>
+
+                    <p class="disclaimermsg">
+                        Information provided by this application is intended to be used for general reference. S.C. DHEC provides no warranty, expressed or implied, as to the accuracy, reliability or completeness of furnished data.
+                    </p>
+                </div>
+                <button type="submit" id="popUp-Close">OK</button>
+            </div>
+        </div>
+
+
+        <div class="section-head">
+
+            <header class="header-box">
+                <div class="header-sub">
+                    <div class="title">
+                        <h1>B.E.R.M. EXPLORER</h1>
+                        <span>
+                            DHEC - OCRM Beach Erosion Research & Monitoring Profile Viewer
+                        </span>
+                    </div>
+
+
+
+
+                    <div class="nav">
+                        <ul>
+                            <li class="item selection">Select Beach
+                                <ul class="child child-list">
+                                    <li class="b-list">Daufuskie Island</li>
+                                    <li class="b-list">Hilton Head Island</li>
+                                    <li class="b-list">Fripp Island</li>
+                                    <li class="b-list">Hunting Island</li>
+                                    <li class="b-list">Harbor Island</li>
+                                    <li class="b-list">Edisto Beach</li>
+                                    <li class="b-list">Seabrook Island</li>
+                                    <li class="b-list">Kiawah Island</li>
+                                    <li class="b-list">Folly Beach</li>
+                                    <li class="b-list">Sullivans Island</li>
+                                    <li class="b-list">Isle of Palms</li>
+                                    <li class="b-list">Dewees Island</li>
+                                    <li class="b-list">Debidue Beach</li>
+                                    <li class="b-list">Pawleys Island</li>
+                                    <li class="b-list">Litchfield Beach</li>
+                                    <li class="b-list">Huntington Beach</li>
+                                    <li class="b-list">Garden City</li>
+                                    <li class="b-list">Surfside Beach</li>
+                                    <li class="b-list">Myrtle Beach</li>
+                                    <li class="b-list">Arcadian Shores</li>
+                                    <li class="b-list">North Myrtle Beach</li>
+                                    <li class="b-list">Waties Island</li>
+                                </ul>
+
+
+                            </li>
+                            <li class="item download">Download
+                                <ul class="child child-down">
+
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/DAUFUSKIE_ISLAND.zip">
+                                        <li class="b-down">Daufuskie Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/HILTON_HEAD_ISLAND.zip">
+                                        <li class="b-down">Hilton Head Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/FRIPP_ISLAND.zip">
+                                        <li class="b-down">Fripp Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/HUNTING_ISLAND.zip">
+                                        <li class="b-down">Hunting Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/HARBOR_ISLAND.zip">
+                                        <li class="b-down">Harbor Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/EDISTO_BEACH.zip">
+                                        <li class="b-down">Edisto Beach</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/SEABROOK_ISLAND.zip">
+                                        <li class="b-down">Seabrook Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/KIAWAH_ISLAND.zip">
+                                        <li class="b-down">Kiawah Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/FOLLY_BEACH.zip">
+                                        <li class="b-down">Folly Beach</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/SULLIVANS_ISLAND.zip">
+                                        <li class="b-down">Sullivans Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/ISLE_OF_PALMS.zip">
+                                        <li class="b-down">Isle of Palms</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/DEWEES_ISLAND.zip">
+                                        <li class="b-down">Dewees Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/DEBIDUE_BEACH.zip">
+                                        <li class="b-down">Debidue Beach</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/PAWLEYS_ISLAND.zip">
+                                        <li class="b-down">Pawleys Island</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/LITCHFIELD_BEACH.zip">
+                                        <li class="b-down">Litchfield Beach</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/HUNTINGTON_BEACH.zip">
+                                        <li class="b-down">Huntington Beach</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/GARDEN_CITY.zip">
+                                        <li class="b-down">Garden City</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/SURFSIDE_BEACH.zip">
+                                        <li class="b-down">Surfside Beach</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/MYRTLE_BEACH.zip">
+                                        <li class="b-down">Myrtle Beach</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/ARCADIAN_SHORES.zip">
+                                        <li class="b-down">Arcadian Shores</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/NORTH_MYRTLE_BEACH.zip">
+                                        <li class="b-down">North Myrtle Beach</li>
+                                    </a>
+                                    <a href="https://www.scdhec.gov/sites/default/files/GIS/BERM-EXPLORER/WATIES_ISLAND.zip">
+                                        <li class="b-down">Waties Island</li>
+                                    </a>
+                                </ul>
+                            </li>
+
+                            <!-- <li class="item-d" id="print"><a href="print.html" target="_blank" class="print">Print</a></li> -->
+                            <li class="item-d item-u under" id="print">Print</li>
+
+                            <li class="item-h item-out under" id="help">Help</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+            </header>
+
+        </div>
+
+
+
+        <!-- <main class="viewDiv" id="viewDiv"> -->
+        <section class="map__area">
+            <div class="print__main">
+                <div class="print__main-box">
+                    <div class="print__main-template">
+                        <div class="print__main-template-box">
+                            <div class="layout_template">
+                                <label for="title" class="layout_template-titlelabel">DPI</label>
+                                <input type="text" name="title" id="title" class="layout_template-titleinput" value=96>
+                            </div>
+                            <div class="layout_template">
+                                <label for="pageSetup" class="layout_template-pagesetuplabel">Page Setup</label>
+                                <select name="pageSetup" id="pageSetup" class="layout_template-pagesetupinput">
+                                <option value="A4-Portrait">A4 Portrait</option>
+                                <option value="A4-Landscape">A4 Landscape</option>
+                            </select>
+                            </div>
+
+                            <button type="submit" class="layout_template-button" id="submitBtn">Print </button>
+
+                            <div class="layout_template-export"> </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="help__main">
+                <div class="help__main-content-wrapper">
+                    <div class="help__main-content">
+                        <div class="help__main-content-subbox">
+
+                            <div class="help__main-header u-margin-bottom-big">
+                                <h1>S.C. B.E.R.M. Explorer Online Help</h2>
+                            </div>
+
+                            <h4 class="welcome u-margin-bottom-small">Welcome to the B.E.R.M Explorer!
+                                <p>A product of the <a href="https://www.scdhec.gov"> South Carolina Department of Health and Environmental Control</a></p>
+                            </h4>
+                            <p class="u-margin-bottom-small">This application is designed to provide South Carolina beachfront communities, researchers and the general public access to topographic and bathymetric data for various beach areas in South Carolina. The Volume tool can also
+                                be used to estimate the volume of Beach erosion over multiple years.
+                            </p>
+
+
+                            <h4 class="symbology-title">Symbology</h4>
+
+                            <table class="symbology-table u-margin-bottom-medium">
+                                <tr>
+                                    <th class="table-header">Symbol</th>
+                                    <th class="table-header">Name</th>
+                                    <th class="table-header">Description</th>
+                                </tr>
+                                <tr>
+                                    <td class="table-data"><img src=./img/overlap.png /></td>
+                                    <td class="table-data">Corrected Overlaps</td>
+                                    <td class="table-data">
+                                        Occasionally, overlaps of collection points occur. Overlaps are areas along the collection path where the seaward order of collection is interrupted and for a short period collection points move back toward the shore before again moving seaward. The overlapping
+                                        points are removed to create a generally seaward moving transect.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-data"><img src=./img/gap.png /></td>
+                                    <td class="table-data">Collection Gaps</td>
+                                    <td class="table-data">
+                                        Often during the collection process, impediments or obstructions appear. These are typically buildings, thick scrub or marsh areas. Because the transects are created from the collection points, collection gaps are not readily apparent.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-data"><img src=./img/transect.png /></td>
+                                    <td class="table-data">Transects</td>
+                                    <td class="table-data">
+                                        Transects are simply the "lines" created from collections points
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="table-data"><img src=./img/compare.png /></td>
+                                    <td class="table-data">Comparison Transects</td>
+                                    <td class="table-data">
+                                        There is variation in the "path" of yearly transects. Comparison transects are simplified representations of all the yearly transects for a given monument and are used only as a means of selecting transects for comparison over various years
+                                    </td>
+                                </tr>
+
+
+                            </table>
+
+
+
+
+
+
+                            <h4 class="navigation u-margin-bottom-small">Map Navigation</h4>
+
+
+                            <p>There are several ways to navigate:</p>
+
+                            <ol class="o-list u-margin-bottom-medium">
+                                <li>Use the Beach Area list hover effect to quickly navigate to a specific beach area</li>
+                                <li>Click a beach location symbol on the map interface <img src=./img/bullseye.png /> to quickly navigate to a specific beach area </li>
+                                <li>Use the basemap toggle <img src=./img/basemap.png /> to toggle between street and imagery basemaps</li>
+                                <li>Hold down the shift key and drag a box on the map to zoom in</li>
+                                <li>Hold Down Ctrl+Shift to zoom out</li>
+                                <li>Roll your mouse roller to zoom in/out</li>
+                                <li>Click the + or - to zoom in/out</li>
+                                <!-- <li>Click the Home button <img src=./img/home.png width="20" /> to zoom to the initial extent</li> -->
+                                <li>Hold Down Ctrl+Shift to zoom out</li>
+                            </ol>
+
+                            <!--                             
+                         <br/>2. 
+                            <br/>3. <br/>4. <br/>5. <br/>6. <br/>7. <br/>8. </p> -->
+
+
+
+
+
+                            <h4 class="using-app u-margin-bottom-small">Using the Application</h4>
+
+
+
+                            <p class="year-img u-margin-bottom-small">Map data is not displayed at all scales. Use the map navigation components to find the beach area you're interested in analyzing. Once zoomed into the desired location,click on a transact. The chart window will slide up with
+                                default year as 2014. For individual years, Click on the button corresponding to the year of interest to display the data set you would like to examine, or click the "All" button to compare data sets over multiple years.
+
+
+
+                                <img src=./img/select-year.png /></p>
+
+
+
+                            <p class="u-margin-bottom-small">
+                                Once a transect is clicked, data collection points for that transect will be displayed in beach profile chart/graph. The profile is a side-view or "slice" of beach topographic and nearshore bathymetry along the transect. Transect (beach monument) number
+                                and collection date is displayed on the top of the chart.</p>
+
+                            <p class="same-img chrt">
+                                <img src=./img/chart.png />
+                            </p>
+
+                            <p class="u-margin-bottom-small">
+                                After the profile is displayed in the chart, moving your mouse (cursor) over the chart will reveal the topographic/bathymetric value and corresponding location of that point on the map. As you move over the chart, location symbol moves along the transect.
+                            </p>
+                            <p class="same-img u-margin-bottom-small">
+                                <img src=./img/chart-mouse-location.png />
+                            </p>
+                            <p class="legend-img u-margin-bottom-small">
+
+                                On the lower right corner of the map, you'll see a small button.<img src=./img/legend.png /> Clicking this button will toggle the display of the map legend.
+                            </p>
+
+
+                            <p class="download-data u-margin-bottom-medium">
+                                On the top navigation menu. You will see <span class="download-btn">'Download'</span> . Hover on this to display the beach data to download.
+
+                                <!-- In addition to the chart download, a preformatted page designed for printing is also available. It features a map showing the selected transect and its corresponding beach
+                            profile chart. It can be launched using the "Print" button <img src=./img/print.png width="40" />. The print template is only available when a transect is selected. If you choose the "All"
+                            option, the selection operations are the same, but the chart will feature all available data years for that transect. The profile chart contains profiles for each year, which can be turned on/off using the chart legend.<br>
+                            <img src=./img/chartcompare.png width="1000" /><br> The mouseover location function and print template are disable in "All" mode. -->
+                            </p>
+
+
+
+                            <h4 class="note u-margin-bottom-small">IMPORTANT NOTE:</h4>
+                            <p class="u-margin-bottom-small">
+
+
+                                Data collection typically starts at or very near the beachfront geodetic monuments. However, monuments are periodically replaced which can mean being relocated several feet or yards from the previous location. Due to monument replacement, as well as other
+                                factors, collection does not begin at the exact same location each year, there is sometimes a substantial landward or seaward difference in collection sets. Like most charts, the charting library used in BERM Explorer assumes
+                                that the first point in the collection should be plotted from the "zero" position on the chart. Because of differing starting position over the various collection years for each transect, this can cause an offset when multiple
+                                years are plotted (compared) on the chart in BERM Explorer.
+                            </p>
+
+                            <p class="u-margin-bottom-small">
+
+
+                                To account for differing starting points, OCRM determined the most landward point for each transect from the 2014-2018 data sets, used those selected points to generate a line. The line was buffered 100 feet. Then, the selected starting points were compared
+                                with the resulting 100-foot buffered line to determine the closest point on the line for each. Those resulting points were used to re-calculate the distance value.This value is used in BERM Explorer to ensure that differing
+                                starting points are reflected accurately in the BERM Explorer profile chart. OCRM chose to use the 100-foot offset because it allows for flexibility in the event beachfront geodetic monuments are relocated substantially
+                                landward in the future. This does not substantially alter the profile. It simply ensures that the profiles plot correctly in relation to profiles from other years. This is only used for comparison of multiple years.
+                            </p>
+                            <p class="u-margin-bottom-medium">
+                                Individual profiles are plotted using the distance values collected in the field. Topographic/bathymetry datasets, grouped by beach area, are available for download as zip files. Click the <span class="download-btn">Download</span>                                link on the header menu.Each zip file contains an ESRI shapefile and a comma-delimited .CSV file.
+                            </p>
+
+                            <h4 class="m-info u-margin-bottom-small">VOLUME CALCULATOR</h4>
+                            <P class="u-margin-bottom-medium">The Volume tool can be used to estimate the volume of earth between two selected contours. This volume can be compared with volume from other years to further estimate the net volume of erosion between selected years. The Volume
+                                tool can be accessed by clicking the volume calculator button on the top right corner of the chart window.
+
+
+                            </P>
+                            <h5 class="u-margin-bottom-tiny sub-header">Using the Volume Calculator</h5>
+                            <p class="u-margin-bottom-tiny">To use the Volume tool. First, select the Upper Contour button and click the chart to set the starting position. Next, select the Lower Contour button and click the chart to set the ending position. Click the calculate button
+                                to calculate the volume. Use the Reset button to reset the Volume tool.
+                            </p>
+                            <p class="u-margin-bottom-medium">
+                                The volume is calculated using the "Mean Area Method" for calculating Earthwork. The Average or mean End-Area method is a useful tool for estimating quantities mostly in construction. It is an approximate method of calculating volume and is accurate enough
+                                for most situations. The general concept is that you calculate the total volume (V) of a material given, the area of two ends (A) and the perpendicular distance between the two area-faces (L). For a volume comprised of
+                                several sections you sum them up using: <img src="./img/volumeMath.png" alt="Formula">. See
+                                <a href="https://www.reviewcivilpe.com/average-end-area-method/" target="_blank"> https://www.reviewcivilpe.com/average-end-area-method/</a> for more information.
+
+
+                            </p>
+
+                            <h4 class="m-info u-margin-bottom-small">More Information</h4>
+
+                            <p class="u-margin-bottom-medium">Should you require additional information on beach access in S.C. or have questions/comments about this application, please contact DHEC - OCRM at 843-953-0200.</p>
+                            <h4 class="browser u-margin-bottom-small">Browser Compatibility</h4>
+
+                            <p class="u-margin-bottom-medium">The BERM Explorer app is supported on the following browsers: Microsoft IE 9/10, Mozilla Firefox, Google Chrome and Apple Safari. For IE, if the application does not display correctly configure the IE browser to trust the site
+                                in compatibility view. Instructions on how to do this in the various IE versions are found in the link below.
+
+                                <h4 class="u-margin-bottom-medium"><u><a href="https://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-11">How to fix site display problems with compatibility view.</a></u></p>
+
+                            <h4 class="disclaimer -margin-bottom-small">
+                                DISCLAIMER:
+                            </h4>
+                            <p>
+                                The South Carolina Department of Health and Environmental Control (S.C. DHEC) maintains this website as a service to the public. While S.C. DHEC makes every effort to provide accurate and complete information, data may change prior to updating. S.C. DHEC
+                                provides no warranty, expressed or implied, as to the accuracy, reliability or completeness of furnished data.
+                            </p>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div id="viewDiv">
+                <div class="dhec__logo">
+
+                    <img src="img/logo_white--1.png" alt="dhec-logo">
+
+                </div>
+                <div class="volume__calculator">
+                    <div class="volume__calculator-box">
+                        <div class="vol">
+                            <p class="vol__head">Volume Calculator</p>
+                            <div class="instruction">
+                                <p> Instructions</p>
+                                <div class="tooltip"><i class="icon ion-information-circled"></i>
+                                    <span class="tooltiptext">First, select the Upper Contour
+                                        button and click the chart to set the 
+                                        starting position. Next, select 
+                                        the Lower Contour button and click 
+                                        the chart to set the ending position</span>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="description"><span class="description-btn">&ensp;</span> Select a contour</div>
+                        <div class="form__group">
+                            <div class="form__radio-group">
+                                <input type="radio" class="form__radio-input" id="upper" name="size" checked>
+
+                                <label for="upper" class="form__radio-label">
+                                    <span class="form__radio-button upper"></span>
+                                    Upper Contour<br> <span class="direction">(Landward)</span>
+                                </label>
+                            </div>
+
+                            <div class="form__radio-group">
+                                <input type="radio" class="form__radio-input" id="lower" name="size">
+
+                                <label for="lower" class="form__radio-label">
+                                    <span class="form__radio-button lower"></span>   
+                                    Lower Contour<br><span class="direction">(Seaward)</span>
+
+
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="table">
+                            <table id="table__values">
+                                <tr>
+                                    <th>Contour</th>
+                                    <th>ID</th>
+                                    <th>Elevation(ft)</th>
+                                    <th>Distance(ft-POB)</th>
+                                </tr>
+                                <tr>
+                                    <td id="contour">Upper</td>
+                                    <td id="UP__ID">&mdash;</td>
+                                    <td id="UP__ELEV">&mdash;</td>
+                                    <td id="UP__DIST">&mdash;</td>
+                                </tr>
+                                <tr>
+                                    <td id="contour">Lower</td>
+                                    <td id="LOW__ID">&mdash;</td>
+                                    <td id="LOW__ELEV">&mdash;</td>
+                                    <td id="LOW__DIST">&mdash;</td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                        <div class="button-box">
+                            <button class="button-box__calc">Calculate</button>
+                            <button class="button-box__reset">Reset</button>
+                        </div>
+                        <div class="results">
+                            <div class="results-text">Results(yds)<sup>3</sup> : <span class="output"></span></div>
+                        </div>
+
+
+                        <!-- </div> -->
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="chart">
+
+                <div class="chart-area" id="chart-area">
+                    <div class="chart-head">
+                        <div class="left__panel">
+                            <div class="profile__year">PROFILE YEAR</div>
+                            <button class="btn__year year-2014" id="Y2014">2014</button>
+                            <button class="btn__year year-2015" id="Y2015">2015</button>
+                            <button class="btn__year year-2016" id="Y2016">2016</button>
+                            <button class="btn__year year-2017" id="Y2017">2017</button>
+                            <button class="btn__year year-2018" id="Y2018">2018</button>
+                            <button class="btn__year year-2019" id="Y2019">2019</button>
+                            <button class="btn__year year-all" id="YALL">ALL</button>
+                        </div>
+
+                        <div class="right__panel">
+                            <button class="btn__calculator">Volume Calculator</button>
+                            <button class="btn__close" title='Close'>&darr;</button>
+
+                        </div>
+
+
+                    </div>
+                    <div class="graph" id="graph">
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script>
-      require(['app/main']);
+        require(['app/main']);
     </script>
+    <!-- <script src="script.js"></script> -->
     <!-- <script src="/dist/main"></script> -->
-  </body>
+</body>
+
 </html>
 <!-- https://cors-anywhere.herokuapp.com/ -->
