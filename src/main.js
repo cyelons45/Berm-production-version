@@ -1610,6 +1610,10 @@ $(document).ready(function() {
 
 
     document.getElementById('submitBtn').addEventListener('click', exportMap)
+
+
+
+
 })
 
 function clearGiffy() {

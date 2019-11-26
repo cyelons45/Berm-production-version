@@ -223,6 +223,7 @@
             <div class="help__main">
                 <div class="help__main-content-wrapper">
                     <div class="help__main-content">
+
                         <div class="help__main-content-subbox">
 
                             <div class="help__main-header u-margin-bottom-big">
@@ -233,7 +234,7 @@
                                 <p>A product of the <a href="https://www.scdhec.gov"> South Carolina Department of Health and Environmental Control</a></p>
                             </h4>
                             <p class="u-margin-bottom-small">This application is designed to provide South Carolina beachfront communities, researchers and the general public access to topographic and bathymetric data for various beach areas in South Carolina. The Volume tool can also
-                                be used to estimate the volume of Beach erosion over multiple years.
+                                be used to estimate the volume of sand over multiple years.
                             </p>
 
 
@@ -257,14 +258,14 @@
                                     <td class="table-data"><img src=./img/gap.png /></td>
                                     <td class="table-data">Collection Gaps</td>
                                     <td class="table-data">
-                                        Often during the collection process, impediments or obstructions appear. These are typically buildings, thick scrub or marsh areas. Because the transects are created from the collection points, collection gaps are not readily apparent.
+                                        Often during the collection process, impediments or obstructions appear. These are typically buildings, thick scrub or marsh areas, or groins. Because the transects are created from the collection points, collection gaps are not readily apparent.
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="table-data"><img src=./img/transect.png /></td>
                                     <td class="table-data">Transects</td>
                                     <td class="table-data">
-                                        Transects are simply the "lines" created from collections points
+                                        Transects are simply the "lines" along which the points are collected.
                                     </td>
                                 </tr>
 
@@ -272,7 +273,7 @@
                                     <td class="table-data"><img src=./img/compare.png /></td>
                                     <td class="table-data">Comparison Transects</td>
                                     <td class="table-data">
-                                        There is variation in the "path" of yearly transects. Comparison transects are simplified representations of all the yearly transects for a given monument and are used only as a means of selecting transects for comparison over various years
+                                        There is variation in the "path" of yearly transects. Comparison transects are simplified representations of all the yearly transects for a given monument and are used only as a means of selecting transects for comparison over various years.
                                     </td>
                                 </tr>
 
@@ -290,7 +291,7 @@
                             <p>There are several ways to navigate:</p>
 
                             <ol class="o-list u-margin-bottom-medium">
-                                <li>Use the Beach Area list hover effect to quickly navigate to a specific beach area</li>
+                                <li>Hover over 'Select Beach' to quickly navigate to a specific beach area</li>
                                 <li>Click a beach location symbol on the map interface <img src=./img/bullseye.png /> to quickly navigate to a specific beach area </li>
                                 <li>Use the basemap toggle <img src=./img/basemap.png /> to toggle between street and imagery basemaps</li>
                                 <li>Hold down the shift key and drag a box on the map to zoom in</li>
@@ -302,8 +303,8 @@
                             </ol>
 
                             <!--                             
-                         <br/>2. 
-                            <br/>3. <br/>4. <br/>5. <br/>6. <br/>7. <br/>8. </p> -->
+                             <br/>2. 
+                                <br/>3. <br/>4. <br/>5. <br/>6. <br/>7. <br/>8. </p> -->
 
 
 
@@ -313,7 +314,7 @@
 
 
 
-                            <p class="year-img u-margin-bottom-small">Map data is not displayed at all scales. Use the map navigation components to find the beach area you're interested in analyzing. Once zoomed into the desired location,click on a transact. The chart window will slide up with
+                            <p class="year-img u-margin-bottom-small">Map data is not displayed at all scales. Use the map navigation components to find the beach area you're interested in analyzing. Once zoomed into the desired location,click on a transect. The chart window will slide up with
                                 default year as 2014. For individual years, Click on the button corresponding to the year of interest to display the data set you would like to examine, or click the "All" button to compare data sets over multiple years.
 
 
@@ -342,14 +343,7 @@
                             </p>
 
 
-                            <p class="download-data u-margin-bottom-medium">
-                                On the top navigation menu. You will see <span class="download-btn">'Download'</span> . Hover on this to display the beach data to download.
 
-                                <!-- In addition to the chart download, a preformatted page designed for printing is also available. It features a map showing the selected transect and its corresponding beach
-                            profile chart. It can be launched using the "Print" button <img src=./img/print.png width="40" />. The print template is only available when a transect is selected. If you choose the "All"
-                            option, the selection operations are the same, but the chart will feature all available data years for that transect. The profile chart contains profiles for each year, which can be turned on/off using the chart legend.<br>
-                            <img src=./img/chartcompare.png width="1000" /><br> The mouseover location function and print template are disable in "All" mode. -->
-                            </p>
 
 
 
@@ -371,24 +365,26 @@
                                 starting points are reflected accurately in the BERM Explorer profile chart. OCRM chose to use the 100-foot offset because it allows for flexibility in the event beachfront geodetic monuments are relocated substantially
                                 landward in the future. This does not substantially alter the profile. It simply ensures that the profiles plot correctly in relation to profiles from other years. This is only used for comparison of multiple years.
                             </p>
+                            <h4 class="note u-margin-bottom-small">DATA DOWNLOAD:</h4>
                             <p class="u-margin-bottom-medium">
-                                Individual profiles are plotted using the distance values collected in the field. Topographic/bathymetry datasets, grouped by beach area, are available for download as zip files. Click the <span class="download-btn">Download</span>                                link on the header menu.Each zip file contains an ESRI shapefile and a comma-delimited .CSV file.
+                                Individual profiles are plotted using the distance values collected in the field. Topographic/bathymetry datasets, grouped by beach area, are available for download as zip files. Click the 'Download' link on the header menu.Each zip file contains an ESRI
+                                shapefile and a comma-delimited .CSV file.
                             </p>
 
                             <h4 class="m-info u-margin-bottom-small">VOLUME CALCULATOR</h4>
-                            <P class="u-margin-bottom-medium">The Volume tool can be used to estimate the volume of earth between two selected contours. This volume can be compared with volume from other years to further estimate the net volume of erosion between selected years. The Volume
+                            <P class="u-margin-bottom-medium">The Volume tool can be used to estimate the volume of sand between two selected contours. This volume can be compared with volume from other years to further estimate the net volume of erosion between selected years. The Volume
                                 tool can be accessed by clicking the volume calculator button on the top right corner of the chart window.
 
 
                             </P>
                             <h5 class="u-margin-bottom-tiny sub-header">Using the Volume Calculator</h5>
-                            <p class="u-margin-bottom-tiny">To use the Volume tool. First, select the Upper Contour button and click the chart to set the starting position. Next, select the Lower Contour button and click the chart to set the ending position. Click the calculate button
-                                to calculate the volume. Use the Reset button to reset the Volume tool.
+                            <p class="u-margin-bottom-tiny"> First, select the Upper Contour button and click the chart to set the starting position. Next, select the Lower Contour button and click the chart to set the ending position. Click the calculate button to calculate the volume.
+                                Use the Reset button to reset the Volume tool.
                             </p>
                             <p class="u-margin-bottom-medium">
-                                The volume is calculated using the "Mean Area Method" for calculating Earthwork. The Average or mean End-Area method is a useful tool for estimating quantities mostly in construction. It is an approximate method of calculating volume and is accurate enough
-                                for most situations. The general concept is that you calculate the total volume (V) of a material given, the area of two ends (A) and the perpendicular distance between the two area-faces (L). For a volume comprised of
-                                several sections you sum them up using: <img src="./img/volumeMath.png" alt="Formula">. See
+                                The volume is calculated using the "Mean Area Method". The Average or mean End-Area method is a useful tool for estimating quantities mostly in construction. It is an approximate method of calculating volume and is accurate enough for most situations.
+                                The general concept is that you calculate the total volume (V) of a material given, the area of two ends (A) and the perpendicular distance between the two area-faces (L). For a volume comprised of several sections you
+                                sum them up using: <img src="./img/volumeMath.png" alt="Formula">. See
                                 <a href="https://www.reviewcivilpe.com/average-end-area-method/" target="_blank"> https://www.reviewcivilpe.com/average-end-area-method/</a> for more information.
 
 
@@ -399,8 +395,7 @@
                             <p class="u-margin-bottom-medium">Should you require additional information on beach access in S.C. or have questions/comments about this application, please contact DHEC - OCRM at 843-953-0200.</p>
                             <h4 class="browser u-margin-bottom-small">Browser Compatibility</h4>
 
-                            <p class="u-margin-bottom-medium">The BERM Explorer app is supported on the following browsers: Mozilla Firefox, Google Chrome, Apple Safari, Edge, Opera, Opera Mini, Android Browser, This application does not support IE 6-9, 10 and 11
-
+                            <p class="u-margin-bottom-medium">The BERM Explorer app is supported on the following browsers: Mozilla Firefox, Google Chrome, Apple Safari, Edge, Opera, Opera Mini, Android Browser. This application does not support IE 6-9, 10 and 11.
 
                                 <h4 class="disclaimer -margin-bottom-small">
                                     DISCLAIMER:
@@ -412,6 +407,11 @@
 
 
                         </div>
+
+
+
+
+
                     </div>
                 </div>
 
