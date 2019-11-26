@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/main.css">
-    <!-- <link rel="stylesheet" type="text/css" href="printStyle.css"> -->
 
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="printStyle.css"> -->
+    <link rel="stylesheet" href="css/main.css">
     <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
     <!-- <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
     <!-- <script src="https://code.highcharts.com/modules/export-data.js"></script> -->
@@ -42,83 +43,83 @@
         </div>
 
         <div class="templateBox">
+            <div class="templateStyle">
+                <div class="printTemplate">
 
-            <div class="printTemplate">
+                    <div class="printMenu-bar">
 
-                <div class="printMenu-bar">
+                        <img src="./img/backgroundCol.png" alt="background-Image" class="printMenu-bar-img">
+                        <div class="logoBox">
+                            <h4 class="print-header">B.E.R.M EXPLORER</h4>
 
-                    <img src="./img/backgroundCol.png" alt="background-Image" class="printMenu-bar-img">
-                    <div class="logoBox">
-                        <h4 class="print-header">B.E.R.M EXPLORER</h4>
+                            <img src="./img/dhec_logo-white.png" alt="logo">
 
-                        <img src="./img/dhec_logo-white.png" alt="logo">
+                        </div>
 
                     </div>
+                    <div class="mapDiv">
+                    </div>
 
-                </div>
-                <div class="mapDiv">
-                </div>
+                    <div class="chartDiv">
 
-                <div class="chartDiv">
+                    </div>
+                    <div class="table-print">
+                        <img src="./img/backgroundCol2.png" alt="background-Image" id="backImage">
+                        <div class="tableContent">
 
-                </div>
-                <div class="table-print">
-                    <img src="./img/backgroundCol2.png" alt="background-Image" id="backImage">
-                    <div class="tableContent">
+                            <div class="infos">
+                                <div class="infoBeachName">
+                                    <p>Beach Name:</p> <span id="nameOfBeach"></span>
+                                </div>
+                                <div class="infoVolResults">
+                                    <p>Volume Results(yds)<sup>3</sup>:</p><span id="volResultsForPrint"></span>
+                                </div>
 
-                        <div class="infos">
-                            <div class="infoBeachName">
-                                <p>Beach Name:</p> <span id="nameOfBeach"></span>
                             </div>
-                            <div class="infoVolResults">
-                                <p>Volume Results(yds)<sup>3</sup>:</p><span id="volResultsForPrint"></span>
-                            </div>
+
+
+
+                            <table id="table-print__values">
+                                <tr>
+                                    <th>Contour</th>
+                                    <th>ID</th>
+                                    <th>Elevation(ft)</th>
+                                    <th>Distance(ft-POB)</th>
+                                </tr>
+                                <tr>
+                                    <td id="contour">Upper</td>
+                                    <td id="UP__ID">&mdash;</td>
+                                    <td id="UP__ELEV">&mdash;</td>
+                                    <td id="UP__DIST">&mdash;</td>
+                                </tr>
+                                <tr>
+                                    <td id="contour">Lower</td>
+                                    <td id="LOW__ID">&mdash;</td>
+                                    <td id="LOW__ELEV">&mdash;</td>
+                                    <td id="LOW__DIST">&mdash;</td>
+                                </tr>
+
+                            </table>
 
                         </div>
 
 
 
-                        <table id="table-print__values">
-                            <tr>
-                                <th>Contour</th>
-                                <th>ID</th>
-                                <th>Elevation(ft)</th>
-                                <th>Distance(ft-POB)</th>
-                            </tr>
-                            <tr>
-                                <td id="contour">Upper</td>
-                                <td id="UP__ID">&mdash;</td>
-                                <td id="UP__ELEV">&mdash;</td>
-                                <td id="UP__DIST">&mdash;</td>
-                            </tr>
-                            <tr>
-                                <td id="contour">Lower</td>
-                                <td id="LOW__ID">&mdash;</td>
-                                <td id="LOW__ELEV">&mdash;</td>
-                                <td id="LOW__DIST">&mdash;</td>
-                            </tr>
 
-                        </table>
 
                     </div>
 
 
-
-
-
                 </div>
-
-
             </div>
+
         </div>
 
 
 
-
-
     </div>
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/print.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="print.js"></script>
 </body>
 
 </html>
