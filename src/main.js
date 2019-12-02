@@ -233,22 +233,6 @@ function drawLayers(year) {
 
 
 
-// document.getElementById('popup').addEventListener('click', function(e) {
-//     let popClose = e.target.closest('.popup__content')
-//     if (popClose) {
-//         try {
-//             // 
-//             document.querySelector('.popup__content').style.display = 'none'
-//             document.querySelector('.popup__content').style.visibility = 'hidden'
-//             document.querySelector('.popup').style.display = 'none'
-//             document.querySelector('.popup').style.visibility = 'hidden'
-//         } catch (err) {
-//             console.log(err)
-//             return
-//         }
-//     }
-// })
-
 
 clearContent = function() {
     document.querySelector('.graph').innerHTML = ''
@@ -302,81 +286,128 @@ const showAlert = (type, msg) => {
 };
 
 
-$(function() {
-    view.on("immediate-click", function(event) {
+view.on("immediate-click", function(event) {
 
-        view.hitTest(event).then(function(response) {
-            var graphic
-            if (response.results.length) {
-                graphic = response.results.filter(function(result) {
-
-
-                    return result.graphic.layer === beachPoints || result.graphic.layer === layerList[0] || result.graphic.layer === selected_all_Layers;
-                })[0].graphic;
+    view.hitTest(event).then(function(response) {
+        var graphic
+        if (response.results.length) {
+            graphic = response.results.filter(function(result) {
 
 
-                let list = graphic.attributes['NAME'] || graphic.attributes['TRAN_ID'];
+                return result.graphic.layer === beachPoints
+            })[0].graphic;
+            let list = graphic.attributes['NAME']
+            if (list = graphic.attributes['NAME']) {
 
-                if (list = graphic.attributes['NAME']) {
-
-                    state.selectedBeach = list
-
-
-                    if (graphicsLayerLine) {
-                        graphicsLayerLine.removeAll()
-                    }
+                state.selectedBeach = list
 
 
-                    let search = new ProcessBerm()
-
-                    var newquery = search.createQuery(list)
-
-                    newquery.queryTask.execute(newquery.query).then(function(results) {
-
-                        search.addPolygonGraphics(results)
-
-                    });
-                } else if (list = graphic.attributes['TRAN_ID']) {
-
-                    clearContent()
-                    addLoader()
-                    reset()
-                    state.active_transact = list
-                    if (graphicsLayerLine) {
-                        graphicsLayerLine.removeAll()
-                    }
-
-                    if (state.selected__year != 'all') {
-
-                        active_transact(list)
-
-                    } else if (state.selected__year === 'all') {
-                        clearContent()
-                        addLoader()
-                        let search = new ProcessBerm()
-
-                        var linequery = search.createTransactQueryAll(list)
-
-                        linequery.tranqueryTask.execute(linequery.tranquery).then(function(results) {
-
-                            search.addLineGraphics(results)
-
-                        });
+                if (graphicsLayerLine) {
+                    graphicsLayerLine.removeAll()
+                }
 
 
-                        plotLineGraph(list)
+                let search = new ProcessBerm()
 
-                    }
+                var newquery = search.createQuery(list)
+
+                newquery.queryTask.execute(newquery.query).then(function(results) {
+
+                    search.addPolygonGraphics(results)
+
+                });
+            }
+
+        }
+    })
 
 
+
+})
+
+view.on("immediate-click", function(event) {
+
+    view.hitTest(event).then(function(response) {
+        var graphic
+        if (response.results.length) {
+            graphic = response.results.filter(function(result) {
+
+
+                return result.graphic.layer === layerList[0]
+            })[0].graphic;
+
+            let list = graphic.attributes['TRAN_ID']
+            if (list = graphic.attributes['TRAN_ID']) {
+
+                clearContent()
+                addLoader()
+                reset()
+                state.active_transact = list
+                if (graphicsLayerLine) {
+                    graphicsLayerLine.removeAll()
+                }
+
+                if (state.selected__year != 'all') {
+
+                    active_transact(list)
 
                 }
 
-            }
-        });
-    });
 
-});
+
+            }
+
+
+
+
+
+        }
+    })
+
+
+
+})
+
+view.on("immediate-click", function(event) {
+
+    view.hitTest(event).then(function(response) {
+        var graphic
+        if (response.results.length) {
+            graphic = response.results.filter(function(result) {
+
+
+                return result.graphic.layer === selected_all_Layers;
+            })[0].graphic;
+
+
+
+            let list = graphic.attributes['TRAN_ID']
+            if (state.selected__year === 'all') {
+                clearContent()
+                addLoader()
+                let search = new ProcessBerm()
+
+                var linequery = search.createTransactQueryAll(list)
+
+                linequery.tranqueryTask.execute(linequery.tranquery).then(function(results) {
+
+                    search.addLineGraphics(results)
+
+                });
+
+
+                plotLineGraph(list)
+
+            }
+
+        }
+    })
+
+
+})
+
+
+
 
 
 function plotLineGraph(list) {
