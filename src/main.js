@@ -20,40 +20,7 @@ import MapImageLayer from 'esri/layers/MapImageLayer';
 var map, view, graphicsLayer, activeGraphic, graphicsLayerLine, layer_1, layer_2, layer_3, layerList, legend, state, active_transact, pointGraphic, container, chart,
     selected__contour, contour, Elevation, chart, seriesA, clearContent, addLoader, exp, wind, printWidget, svg, printUrl, height, Monument, highlight, selected__year
 state = []
-
-map = new Map({
-    basemap: "satellite"
-});
-
-view = new MapView({
-    container: "viewDiv",
-    map: map,
-    center: [-79.47034228448162, 33.00128049734469], // longitude, latitude
-    zoom: 9,
-    highlightOptions: {
-        color: [255, 255, 0, 1],
-        haloOpacity: 0.9,
-        fillOpacity: 0.9
-    }
-});
-
-
-var basemapToggle = new BasemapToggle({
-    view: view,
-    nextBasemap: "streets"
-});
-
-view.ui.add(basemapToggle, "top-right");
-view.ui.remove("attribution");
-
-var track = new Track({
-    view: view
-});
-view.ui.add(track, "top-left");
-const layer = view.map.layers.getItemAt(0);
-
-
-
+state.selected__year = '2014'
 selected__contour = 'upper'
 state = []
 state.printPosition = 'up'
@@ -65,37 +32,9 @@ state.chartPresent = false
 printUrl = "https://gis.dhec.sc.gov/gisportal/sharing/servers/bb0c7ebbc8f8410f840299bad9b68547/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
 
 state.transact_points = ['https://gis.dhec.sc.gov/gisserver/rest/services/environment/BERM/MapServer/0']
-state.selected__year = '2014'
-
-
-const beachLabelClass = new LabelClass({
-    labelExpressionInfo: { expression: "$feature.NAME" },
-    symbol: {
-        type: "text",
-        color: "black",
-        font: { size: 8, weight: "bold" },
-        haloSize: 2,
-        haloColor: "white",
 
 
 
-    },
-    maxScale: 0,
-    labelPlacement: "center-right"
-});
-var beachPoints = new FeatureLayer({
-    url: `https://gis.dhec.sc.gov/gisserver/rest/services/environment/BERM/MapServer/5`,
-    outFields: '*',
-
-    labelingInfo: beachLabelClass
-});
-
-map.add(beachPoints);
-
-Monument = new MapImageLayer({
-    url: "https://gis.dhec.sc.gov/gisserver/rest/services/environment/Monuments/MapServer",
-});
-map.add(Monument)
 
 
 let selected_2014_Layers = [
@@ -154,10 +93,88 @@ layerList = [layer_1, layer_2, layer_3]
 
 
 
-drawLayers(selected_2014_Layers)
-if (document.querySelector('.year-2014').style != undefined) {
-    document.querySelector('.year-2014').style.background = '#F05C5A';
+function init() {
+    map = new Map({
+        basemap: "satellite"
+    });
+
+    view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-79.47034228448162, 33.00128049734469], // longitude, latitude
+        zoom: 9,
+        highlightOptions: {
+            color: [255, 255, 0, 1],
+            haloOpacity: 0.9,
+            fillOpacity: 0.9
+        }
+    });
+
+
+
+    var basemapToggle = new BasemapToggle({
+        view: view,
+        nextBasemap: "streets"
+    });
+
+    view.ui.add(basemapToggle, "top-right");
+    view.ui.remove("attribution");
+
+    var track = new Track({
+        view: view
+    });
+    view.ui.add(track, "top-left");
+
+    drawLayers(selected_2014_Layers)
+
+
+    if (document.querySelector('.year-2014').style != undefined) {
+        document.querySelector('.year-2014').style.background = '#F05C5A';
+    }
+
+
+
 }
+
+init()
+
+
+const beachLabelClass = new LabelClass({
+    labelExpressionInfo: { expression: "$feature.NAME" },
+    symbol: {
+        type: "text",
+        color: "black",
+        font: { size: 8, weight: "bold" },
+        haloSize: 2,
+        haloColor: "white",
+
+
+
+    },
+    maxScale: 0,
+    labelPlacement: "center-right"
+});
+var beachPoints = new FeatureLayer({
+    url: `https://gis.dhec.sc.gov/gisserver/rest/services/environment/BERM/MapServer/5`,
+    outFields: '*',
+
+    labelingInfo: beachLabelClass
+});
+
+map.add(beachPoints);
+
+
+Monument = new MapImageLayer({
+    url: "https://gis.dhec.sc.gov/gisserver/rest/services/environment/Monuments/MapServer",
+});
+map.add(Monument)
+
+
+
+
+
+
+
 
 
 
@@ -214,6 +231,25 @@ function drawLayers(year) {
 }
 
 
+
+
+// document.getElementById('popup').addEventListener('click', function(e) {
+//     let popClose = e.target.closest('.popup__content')
+//     if (popClose) {
+//         try {
+//             // 
+//             document.querySelector('.popup__content').style.display = 'none'
+//             document.querySelector('.popup__content').style.visibility = 'hidden'
+//             document.querySelector('.popup').style.display = 'none'
+//             document.querySelector('.popup').style.visibility = 'hidden'
+//         } catch (err) {
+//             console.log(err)
+//             return
+//         }
+//     }
+// })
+
+
 clearContent = function() {
     document.querySelector('.graph').innerHTML = ''
     contour = [0, 0]
@@ -266,101 +302,82 @@ const showAlert = (type, msg) => {
 };
 
 
+$(function() {
+    view.on("immediate-click", function(event) {
+
+        view.hitTest(event).then(function(response) {
+            var graphic
+            if (response.results.length) {
+                graphic = response.results.filter(function(result) {
 
 
+                    return result.graphic.layer === beachPoints || result.graphic.layer === layerList[0] || result.graphic.layer === selected_all_Layers;
+                })[0].graphic;
 
 
-view.on("click", function(event) {
+                let list = graphic.attributes['NAME'] || graphic.attributes['TRAN_ID'];
+
+                if (list = graphic.attributes['NAME']) {
+
+                    state.selectedBeach = list
 
 
-    view.hitTest(event).then(function(response) {
-        var graphic
-        if (response.results.length) {
-            graphic = response.results.filter(function(result) {
+                    if (graphicsLayerLine) {
+                        graphicsLayerLine.removeAll()
+                    }
 
 
-                return result.graphic.layer === beachPoints || result.graphic.layer === layerList[0] || result.graphic.layer === selected_all_Layers;
-            })[0].graphic;
-
-
-            let list = graphic.attributes['NAME'] || graphic.attributes['TRAN_ID'];
-
-            if (list = graphic.attributes['NAME']) {
-
-                state.selectedBeach = list
-                    // view.whenLayerView(graphic.layer).then(function(layerView) {
-
-                //     // if (highlight) {
-                //     //     highlight.remove();
-                //     // }
-                //     // highlight = layerView.highlight(graphic);
-
-                //     graphicsLayer.removeAll()
-
-                // })
-
-                if (graphicsLayerLine) {
-                    graphicsLayerLine.removeAll()
-                }
-
-
-                let search = new ProcessBerm()
-
-                var newquery = search.createQuery(list)
-
-                newquery.queryTask.execute(newquery.query).then(function(results) {
-
-                    search.addPolygonGraphics(results)
-
-                });
-            } else if (list = graphic.attributes['TRAN_ID']) {
-                // view.whenLayerView(graphic.layer).then(function(layerView) {
-
-                //     // if (highlight) {
-                //     //     highlight.remove();
-                //     // }
-                //     // highlight = layerView.highlight(graphic);
-
-                //     // graphicsLayer.removeAll()
-
-                // })
-                clearContent()
-                addLoader()
-                reset()
-                state.active_transact = list
-                if (graphicsLayerLine) {
-                    graphicsLayerLine.removeAll()
-                }
-
-                if (state.selected__year != 'all') {
-
-                    active_transact(list)
-
-                } else if (state.selected__year === 'all') {
-                    clearContent()
-                    addLoader()
                     let search = new ProcessBerm()
 
-                    var linequery = search.createTransactQueryAll(list)
+                    var newquery = search.createQuery(list)
 
-                    linequery.tranqueryTask.execute(linequery.tranquery).then(function(results) {
+                    newquery.queryTask.execute(newquery.query).then(function(results) {
 
-                        search.addLineGraphics(results)
+                        search.addPolygonGraphics(results)
 
                     });
+                } else if (list = graphic.attributes['TRAN_ID']) {
+
+                    clearContent()
+                    addLoader()
+                    reset()
+                    state.active_transact = list
+                    if (graphicsLayerLine) {
+                        graphicsLayerLine.removeAll()
+                    }
+
+                    if (state.selected__year != 'all') {
+
+                        active_transact(list)
+
+                    } else if (state.selected__year === 'all') {
+                        clearContent()
+                        addLoader()
+                        let search = new ProcessBerm()
+
+                        var linequery = search.createTransactQueryAll(list)
+
+                        linequery.tranqueryTask.execute(linequery.tranquery).then(function(results) {
+
+                            search.addLineGraphics(results)
+
+                        });
 
 
-                    plotLineGraph(list)
+                        plotLineGraph(list)
+
+                    }
+
+
 
                 }
 
-
-
             }
-
-        }
+        });
     });
+
 });
+
 
 function plotLineGraph(list) {
     const compare2014 = []
@@ -1435,19 +1452,6 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
             drawLayers(selected_all_Layers)
             plotLineGraph(state.active_transact)
             active_transact(state.active_transact)
-
-            // if (highlight) {
-            //     highlight.remove();
-            // }
-            // view.whenLayerView(graphic.layer).then(function(layerView) {
-
-            //     highlight = layerView.highlight(graphic);
-
-
-            // })
-
-            // active_transact(state.active_transact)
-
         }
 
 
@@ -1820,21 +1824,3 @@ function exportMap() {
 
 
 }
-
-document.getElementById('popUp-Close').addEventListener('click', function() {
-        try {
-            document.querySelector('.popup__content').style.display = 'none'
-            document.querySelector('.popup__content').style.visibility = 'hidden'
-            document.querySelector('.popup').style.display = 'none'
-            document.querySelector('.popup').style.visibility = 'hidden'
-        } catch (err) {
-            console.log(err)
-            return
-        }
-
-
-    })
-    // $(function() {
-    //   
-    // $("#Y2014").draggable({ opacity: 1, helper: "clone", cancel: false, appendTo: '#viewDiv', });
-    // })

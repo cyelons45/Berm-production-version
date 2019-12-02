@@ -1,37 +1,45 @@
 <!DOCTYPE html>
+
+
 <html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+
     <link rel="shortcut icon" type="image/png" href="img/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="./js/dataExport.js"></script>
-    <script src="./js/canvg.js"></script>
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/jqueryUI.js"></script>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
-    <link rel="stylesheet" href="./css/ionicons.min.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css" />
+    <link rel="stylesheet" href="css/ionicons.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/dataExport.js"></script>
+    <script src="js/canvg.js"></script>
+
+    <script src="js/jqueryUI.js"></script>
+    <script src="js/popup.js"></script>
     <!-- <script src="https://js.arcgis.com/4.12/"></script> -->
+
     <script>
         var locationPath = location.pathname.replace(/\/[^\/]+$/, '');
         window.dojoConfig = {
             packages: [{
                 name: 'app',
-                location: locationPath + '/dist',
-            }, ],
+                location: locationPath + '/dist'
+            }]
         };
     </script>
+
+
+
     <script src="https://js.arcgis.com/4.13/"></script>
     <title>B.E.R.M. EXPLORER</title>
 </head>
 
 <body class="body">
-
     <div class="sub__body">
         <div class="popup" id="popup">
             <div class="popup__content">
@@ -226,7 +234,7 @@
                         <div class="help__main-content-subbox">
 
                             <div class="help__main-header u-margin-bottom-big">
-                                <h1>S.C. B.E.R.M. Explorer Online Help</h2>
+                                <h1>S.C. B.E.R.M. Explorer Online Help</h1>
                             </div>
 
                             <h4 class="welcome u-margin-bottom-small">Welcome to the B.E.R.M Explorer!
@@ -547,8 +555,7 @@
 
 
 
-    </div>
-
+    <!-- </div> -->
 
 
 
@@ -564,12 +571,22 @@
 
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <!-- <script>
+        var locationPath = location.pathname.replace(/\/[^\/]+$/, '');
+        window.dojoConfig = {
+            packages: [{
+                name: 'app',
+                location: locationPath + '/dist'
+            }]
+        };
+    </script> -->
+    <!-- <script src="js/jquery.min.js"></script> -->
+
+    <!-- <script src="/dist/main.js.map"></script> -->
     <script>
         require(['app/main']);
     </script>
-    <!-- <script src="script.js"></script> -->
-    <!-- <script src="/dist/main"></script> -->
+
 </body>
 
 </html>
-<!-- https://cors-anywhere.herokuapp.com/ -->
