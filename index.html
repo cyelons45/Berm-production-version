@@ -14,6 +14,17 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css" />
     <link rel="stylesheet" href="css/ionicons.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-122945968-1');
+        gtag('config', 'UA-146505930-1');
+    </script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/dataExport.js"></script>
@@ -586,7 +597,11 @@
     <script>
         require(['app/main']);
     </script>
-
+    <noscript>
+    <div style="border: 1px solid purple; padding: 10px">
+      <span style="color:red">JavaScript is not enabled!</span>
+    </div>
+  </noscript>
 </body>
 
 </html>

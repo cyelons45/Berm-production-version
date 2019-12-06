@@ -18,8 +18,8 @@ import PrintParameters from 'esri/tasks/support/PrintParameters';
 import MapImageLayer from 'esri/layers/MapImageLayer';
 
 var map, view, graphicsLayer, activeGraphic, graphicsLayerLine, layer_1, layer_2, layer_3, layerList, legend, state, active_transact, pointGraphic, container, chart,
-    selected__contour, contour, Elevation, chart, seriesA, clearContent, addLoader, exp, wind, printWidget, svg, printUrl, height, Monument, highlight, selected__year
-state = []
+    selected__contour, contour, Elevation, chart, seriesA, clearContent, addLoader, exp, wind, printWidget, svg, printUrl, height, Monument, highlight, selected__year, allTransects,
+    state = []
 state.selected__year = '2014'
 selected__contour = 'upper'
 state = []
@@ -300,7 +300,9 @@ view.on("immediate-click", function(event) {
             if (list = graphic.attributes['NAME']) {
 
                 state.selectedBeach = list
-
+                if (graphicsLayer) {
+                    graphicsLayer.removeAll()
+                }
 
                 if (graphicsLayerLine) {
                     graphicsLayerLine.removeAll()
@@ -371,12 +373,12 @@ view.on("immediate-click", function(event) {
 view.on("immediate-click", function(event) {
 
     view.hitTest(event).then(function(response) {
-        var graphic
+
         if (response.results.length) {
-            graphic = response.results.filter(function(result) {
+            let graphic = response.results.filter(function(result) {
 
 
-                return result.graphic.layer === selected_all_Layers;
+                return result.graphic.layer === allTransects;
             })[0].graphic;
 
 
@@ -385,6 +387,9 @@ view.on("immediate-click", function(event) {
             if (state.selected__year === 'all') {
                 clearContent()
                 addLoader()
+                if (graphicsLayerLine) {
+                    graphicsLayerLine.removeAll()
+                }
                 let search = new ProcessBerm()
 
                 var linequery = search.createTransactQueryAll(list)
@@ -1145,6 +1150,9 @@ class ProcessBerm {
         });
     }
     addLineGraphics(results) {
+        if (graphicsLayerLine) {
+            map.remove(graphicsLayerLine);
+        }
 
         graphicsLayerLine = new GraphicsLayer();
         map.add(graphicsLayerLine);
@@ -1166,6 +1174,7 @@ class ProcessBerm {
             view.goTo(gl)
         });
     }
+
     getAllYearsPointsForChart(list, url) {
 
         var sel_ptquery = this.pointsQuery(list, url)
@@ -1350,6 +1359,9 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
                 map.remove(el)
 
             })
+            if (allTransects) {
+                map.remove(allTransects)
+            }
 
             if (graphicsLayerLine) {
                 graphicsLayerLine.removeAll()
@@ -1374,7 +1386,9 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
             if (graphicsLayerLine) {
                 graphicsLayerLine.removeAll()
             }
-
+            if (allTransects) {
+                map.remove(allTransects)
+            }
 
             state.transact_points = ['https://gis.dhec.sc.gov/gisserver/rest/services/environment/BERM/MapServer/6']
             drawLayers(selected_2015_Layers)
@@ -1390,7 +1404,9 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
                 map.remove(el)
 
             })
-
+            if (allTransects) {
+                map.remove(allTransects)
+            }
             if (graphicsLayerLine) {
                 graphicsLayerLine.removeAll()
             }
@@ -1408,6 +1424,9 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
                 map.remove(el)
 
             })
+            if (allTransects) {
+                map.remove(allTransects)
+            }
             if (graphicsLayerLine) {
                 graphicsLayerLine.removeAll()
             }
@@ -1425,7 +1444,9 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
                 map.remove(el)
 
             })
-
+            if (allTransects) {
+                map.remove(allTransects)
+            }
             if (graphicsLayerLine) {
                 graphicsLayerLine.removeAll()
             }
@@ -1443,7 +1464,9 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
                 map.remove(el)
 
             })
-
+            if (allTransects) {
+                map.remove(allTransects)
+            }
 
             if (graphicsLayerLine) {
                 graphicsLayerLine.removeAll()
@@ -1462,13 +1485,15 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
                 map.remove(el)
 
             })
-
+            if (allTransects) {
+                map.remove(allTransects)
+            }
 
 
             if (graphicsLayerLine) {
                 graphicsLayerLine.removeAll()
             }
-            // console.log(state)
+
             state.selected__year = Year
                 // console.log(state)
             state.transact_points = [
@@ -1479,8 +1504,13 @@ document.querySelector('.chart-head').addEventListener('click', function(e) {
                 'https://gis.dhec.sc.gov/gisserver/rest/services/environment/BERM/MapServer/19'
 
             ]
+            allTransects = new FeatureLayer({
+                url: `https://gis.dhec.sc.gov/gisserver/rest/services/environment/BERM/MapServer/10`,
+                outFields: '*',
+            });
+            map.add(allTransects)
 
-            drawLayers(selected_all_Layers)
+            // drawLayers(selected_all_Layers)
             plotLineGraph(state.active_transact)
             active_transact(state.active_transact)
         }
