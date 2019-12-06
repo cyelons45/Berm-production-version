@@ -389,6 +389,7 @@ view.on("immediate-click", function(event) {
                 addLoader()
                 if (graphicsLayerLine) {
                     graphicsLayerLine.removeAll()
+
                 }
                 let search = new ProcessBerm()
 
